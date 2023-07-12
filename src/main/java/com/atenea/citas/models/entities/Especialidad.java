@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Entity
 @Getter
@@ -16,13 +17,13 @@ import lombok.Setter;
 public class Especialidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idEspecialidad;
+    private Integer idEspecialidad;
     private String nombre;
 
     @OneToMany(mappedBy = "especialidad")
     private List<Medico> medicos;
 
-    public Especialidad(int especialidad) {
+    public Especialidad(Integer especialidad) {
         this.idEspecialidad = especialidad;
     }
 

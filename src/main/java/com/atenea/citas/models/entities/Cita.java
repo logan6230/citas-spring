@@ -5,11 +5,12 @@ import java.time.LocalDate;
 
 
 import com.atenea.citas.models.dto.CitaDTO;
-import com.atenea.citas.models.dto.CitaPruDTO;
+import com.atenea.citas.models.dto.CitaAsignadaDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Entity
 @Getter
@@ -33,15 +34,23 @@ public class Cita {
     public Cita(CitaDTO citaDTO) {
         this.idCita = citaDTO.getIdCita();
         this.fechaCita = citaDTO.getFechaCita();
-        this.paciente = new Paciente(citaDTO.getPacienteId());
-        this.medico = new Medico(citaDTO.getMedicoId());
+        this.paciente = new Paciente(citaDTO.getPacienteCedula());
+        this.medico = new Medico(citaDTO.getMedicoTarjetaProfesional());
     }
 
     public CitaDTO toDTO() {
         return new CitaDTO(idCita, fechaCita, paciente.getCedula(), medico.getTarjetaProfesional());
     }
-    public CitaPruDTO toPruDTO() {
-        return new CitaPruDTO(idCita, fechaCita, paciente.getNombre(), medico.getNombre());
+    public CitaAsignadaDTO toPruDTO() {
+        return new CitaAsignadaDTO(idCita, fechaCita, paciente.getNombre(), medico.getNombre());
+    }
+
+    public void setMedico(int medicoTarjetaProfesional) {
+        this.medico = new Medico(medicoTarjetaProfesional);
+    }
+
+    public void setPaciente(int pacienteCedula) {
+        this.paciente = new Paciente(pacienteCedula);
     }
 
 

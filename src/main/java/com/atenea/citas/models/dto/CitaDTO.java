@@ -10,14 +10,14 @@ import java.time.LocalDate;
 public class CitaDTO {
     private int idCita;
     private LocalDate fechaCita;
-    private int pacienteId;
-    private int medicoId;
+    private int pacienteCedula;
+    private int medicoTarjetaProfesional;
 
-    public CitaDTO(int idCita, LocalDate fechaCita, int pacienteId, int medicoId) {
+    public CitaDTO(int idCita, LocalDate fechaCita, int pacienteCedula, int medicoTarjetaProfesional) {
         this.idCita = idCita;
         this.fechaCita = fechaCita;
-        this.pacienteId = pacienteId;
-        this.medicoId = medicoId;
+        this.pacienteCedula = pacienteCedula;
+        this.medicoTarjetaProfesional = medicoTarjetaProfesional;
     }
     // Constructor, getters y setters
 }

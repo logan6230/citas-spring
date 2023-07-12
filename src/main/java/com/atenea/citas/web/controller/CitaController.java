@@ -1,8 +1,8 @@
 package com.atenea.citas.web.controller;
 
 import com.atenea.citas.models.dto.CitaDTO;
-import com.atenea.citas.models.dto.CitaPruDTO;
-import com.atenea.citas.service.serviceI.CitaService;
+import com.atenea.citas.models.dto.CitaAsignadaDTO;
+import com.atenea.citas.dominio.service.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*" , methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
 public class CitaController {
 
     private final CitaService citaService;
@@ -27,7 +28,7 @@ public class CitaController {
         return new ResponseEntity<>(citaDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/citas")
+    @GetMapping("/obtener-citas")
     public ResponseEntity<List<CitaDTO>> getAllCitas() {
         List<CitaDTO> citas = citaService.getAllCitas();
         return new ResponseEntity<>(citas, HttpStatus.OK);
@@ -39,21 +40,22 @@ public class CitaController {
         return new ResponseEntity<>(createdCita, HttpStatus.CREATED);
     }
 
-    @PutMapping("/cita/{citaId}")
-    public ResponseEntity<CitaDTO> updateCita(@PathVariable int citaId, @RequestBody CitaDTO citaDTO) {
-        CitaDTO updatedCita = citaService.updateCita(citaId, citaDTO);
+    @PutMapping("/cita")
+    public ResponseEntity<CitaDTO> updateCita( @RequestBody CitaDTO citaDTO) {
+        CitaDTO updatedCita = citaService.updateCita(citaDTO);
         return new ResponseEntity<>(updatedCita, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/cita/{citaId}")
     public ResponseEntity<Void> deleteCita(@PathVariable int citaId) {
         citaService.deleteCita(citaId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/obtener-citas")
-    public ResponseEntity<List<CitaPruDTO>> obtenerCitas() {
-        List<CitaPruDTO> citas = citaService.obtenerCitas();
+    @GetMapping("/citas")
+    public ResponseEntity<List<CitaAsignadaDTO>> obtenerCitas() {
+        List<CitaAsignadaDTO> citas = citaService.obtenerCitas();
         return new ResponseEntity<>(citas, HttpStatus.OK);
     }
 }

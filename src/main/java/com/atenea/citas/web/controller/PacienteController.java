@@ -2,7 +2,7 @@ package com.atenea.citas.web.controller;
 
 import com.atenea.citas.exceptions.PacienteNotFoundException;
 import com.atenea.citas.models.dto.PacienteDTO;
-import com.atenea.citas.service.serviceI.PacienteService;
+import com.atenea.citas.dominio.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*" , methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
 public class PacienteController {
     @Autowired
     private  PacienteService pacienteService;
@@ -58,7 +59,7 @@ public class PacienteController {
     public ResponseEntity<Void> eliminarPaciente(@PathVariable("pacienteID") int pacienteID) {
         try {
             pacienteService.eliminarPaciente(pacienteID);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.OK).build();
         } catch (PacienteNotFoundException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {

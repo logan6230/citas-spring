@@ -1,4 +1,4 @@
-package com.atenea.citas.service.serviceI;
+package com.atenea.citas.dominio.service;
 
 import com.atenea.citas.models.dto.EspecialidadDTO;
 

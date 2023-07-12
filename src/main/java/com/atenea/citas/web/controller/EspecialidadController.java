@@ -1,7 +1,7 @@
 package com.atenea.citas.web.controller;
 
 import com.atenea.citas.models.dto.EspecialidadDTO;
-import com.atenea.citas.service.serviceI.EspecialidadService;
+import com.atenea.citas.dominio.service.EspecialidadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*" , methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE}, allowedHeaders = "*")
 public class EspecialidadController {
     private final EspecialidadService especialidadService;
 

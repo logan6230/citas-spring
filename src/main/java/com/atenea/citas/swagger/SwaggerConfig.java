@@ -1,5 +1,9 @@
 package com.atenea.citas.swagger;
 
+import com.atenea.citas.models.entities.Cita;
+import com.atenea.citas.models.entities.Especialidad;
+import com.atenea.citas.models.entities.Medico;
+import com.atenea.citas.models.entities.Paciente;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +26,7 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
                 .build()
+                .ignoredParameterTypes(Cita.class, Especialidad.class, Medico.class, Paciente.class)
                 .apiInfo(apiInfo());
 
     }
@@ -31,6 +36,7 @@ public class SwaggerConfig {
                 .description("API para gestionar citas médicas")
                 .version("1.0.0")
                 .build();
+
     }
 
 

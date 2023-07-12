@@ -6,10 +6,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.*;
 import java.util.List;
 
+import com.atenea.citas.models.dto.EspecialidadDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import springfox.documentation.annotations.ApiIgnore;
 
 @Entity
 @Getter
@@ -33,21 +35,18 @@ public class Medico {
     @JoinColumn(name = "idEspecialidad")
     private Especialidad especialidad;
 
-    public Medico(int tarjetaProfesional,
-                  String nombre, String apellido,
-                  String consultorio, String telefono,
-                  String email, int especialidad) {
+    public Medico(int medicoId) {
+        this.tarjetaProfesional = medicoId;
+    }
+
+    public Medico(int tarjetaProfesional, String nombre, String apellido, String consultorio, String telefono, String email, EspecialidadDTO especialidad) {
         this.tarjetaProfesional = tarjetaProfesional;
         this.nombre = nombre;
         this.apellido = apellido;
         this.consultorio = consultorio;
         this.telefono = telefono;
         this.email = email;
-        this.especialidad = new Especialidad(especialidad);
-    }
-
-    public Medico(int medicoId) {
-        this.tarjetaProfesional = medicoId;
+        this.especialidad = new Especialidad(especialidad.getIdEspecialidad());
     }
 
     // Constructor, getters y setters

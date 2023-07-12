@@ -1,9 +1,9 @@
-package com.atenea.citas.service.impl;
+package com.atenea.citas.dominio.serviceImpl;
 import com.atenea.citas.models.dto.CitaDTO;
-import com.atenea.citas.models.dto.CitaPruDTO;
+import com.atenea.citas.models.dto.CitaAsignadaDTO;
 import com.atenea.citas.models.entities.Cita;
 import com.atenea.citas.models.repository.CitaRepository;
-import com.atenea.citas.service.serviceI.CitaService;
+import com.atenea.citas.dominio.service.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,15 +36,15 @@ public class CitaServiceImpl implements CitaService {
     }
 
    @Override
-    public List<CitaPruDTO> obtenerCitas() {
+    public List<CitaAsignadaDTO> obtenerCitas() {
         List<Cita> citas = citaRepository.findAll();
         return citas.stream()
                 .map(cita -> {
-                    CitaPruDTO citaPruDTO = cita.toPruDTO();
-                    citaPruDTO.getPaciente().setNombre(cita.getPaciente().getNombre());
-                    citaPruDTO.getMedico().setNombre(cita.getMedico().getNombre());
-                    citaPruDTO.getMedico().getEspecialidad().setNombre(cita.getMedico().getEspecialidad().getNombre());
-                    return citaPruDTO;
+                    CitaAsignadaDTO citaAsignadaDTO = cita.toPruDTO();
+                    citaAsignadaDTO.getPaciente().setNombre(cita.getPaciente().getNombre());
+                    citaAsignadaDTO.getMedico().setNombre(cita.getMedico().getNombre());
+                    citaAsignadaDTO.getMedico().setEspecialidad(cita.getMedico().getEspecialidad().getNombre());
+                    return citaAsignadaDTO;
                 })
                 .collect(Collectors.toList());
     }
@@ -57,11 +57,13 @@ public class CitaServiceImpl implements CitaService {
     }
 
     @Override
-    public CitaDTO updateCita(int citaId, CitaDTO citaDTO) {
-        Cita existingCita = citaRepository.findById(citaId)
-                .orElseThrow(() -> new RuntimeException("Cita not found with id: " + citaId));
-
+    public CitaDTO updateCita(CitaDTO citaDTO) {
+        Cita existingCita = citaRepository.findById(citaDTO.getIdCita())
+                .orElseThrow(() -> new RuntimeException("Cita not found with id: " + citaDTO.getIdCita()));
+        existingCita.setIdCita(citaDTO.getIdCita());
         existingCita.setFechaCita(citaDTO.getFechaCita());
+        existingCita.setMedico(citaDTO.getMedicoTarjetaProfesional());
+        existingCita.setPaciente(citaDTO.getPacienteCedula());
 
         Cita updatedCita = citaRepository.save(existingCita);
         return updatedCita.toDTO();

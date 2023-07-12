@@ -1,11 +1,10 @@
-package com.atenea.citas.service.impl;
+package com.atenea.citas.dominio.serviceImpl;
 
 import com.atenea.citas.models.dto.PacienteDTO;
 import com.atenea.citas.models.entities.Paciente;
 import com.atenea.citas.models.repository.PacienteRepository;
-import com.atenea.citas.service.serviceI.PacienteService;
+import com.atenea.citas.dominio.service.PacienteService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.stream.Collectors;

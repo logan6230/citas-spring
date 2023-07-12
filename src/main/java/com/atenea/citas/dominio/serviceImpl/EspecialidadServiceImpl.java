@@ -1,10 +1,10 @@
-package com.atenea.citas.service.impl;
+package com.atenea.citas.dominio.serviceImpl;
 
 
 import com.atenea.citas.models.dto.EspecialidadDTO;
 import com.atenea.citas.models.entities.Especialidad;
 import com.atenea.citas.models.repository.EspecialidadRepository;
-import com.atenea.citas.service.serviceI.EspecialidadService;
+import com.atenea.citas.dominio.service.EspecialidadService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

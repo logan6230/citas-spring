@@ -1,6 +1,7 @@
 package com.atenea.citas.models.dto;
 
 import com.atenea.citas.models.entities.Especialidad;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -16,28 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Data
 @ResponseBody
 public class MedicoDTO {
-    private int tarjetaProfesional;
+    private Integer tarjetaProfesional;
     private String nombre;
     private String apellido;
     private String consultorio;
     private String telefono;
     private String email;
-    private int especialidad;
+    @JsonIgnoreProperties( value = {"idEspecialidad", "medicos"})
+    private Especialidad especialidad;
 
-    public MedicoDTO(
-            int tarjetaProfesional, String nombre, String apellido,
-            String consultorio, String telefono,
-            String email, int especialidad) {
-        this.tarjetaProfesional = tarjetaProfesional;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.consultorio = consultorio;
-        this.telefono = telefono;
-        this.email = email;
-        this.especialidad = especialidad;
-        }
-
-    public MedicoDTO(String nombreMedico) {
-        this.nombre = nombreMedico;
-    }
 }
